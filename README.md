@@ -1,2 +1,2 @@
 # paraphernalia
-Assorted projects.
+some assorted projects.
