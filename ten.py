@@ -1,5 +1,7 @@
 # Brute force the Make Ten train game.
-import itertools, functools
+# TODOS:
+# - Make more efficient.
+import itertools, math
 
 TEN = 10
 OPERATORS = ['+', '-', '*', '/']
@@ -17,12 +19,19 @@ def permute_operators(operators):
 
 def make_ten(numbers):
   assert len(numbers) > 0
-  for num_perm in itertools.permutations(numbers):
+  solutions = []
+  for num_perm in set(itertools.permutations(numbers)):
     for op_perm in permute_operators(OPERATORS):
-      expression = str(numbers[0])
+      expression = str(num_perm[0])
       for i in range(1, len(numbers)):
         expression += op_perm.pop(0) + str(num_perm[i])
-      if eval(expression) == TEN:
-        print(f'{expression} = {TEN}')
+      if math.isclose(eval(expression), TEN): # Account for FPE.
+        solutions.append(f'{expression} = {TEN}')
 
-make_ten([3, 5, 8, 5])
+  if solutions:
+    print('\n'.join(set(solutions)))
+  else:
+    print(f'Can\'t make {TEN} with {", ".join(map(str, numbers))}!')
+
+if __name__ == '__main__':
+  make_ten([3, 5, 8, 5])
