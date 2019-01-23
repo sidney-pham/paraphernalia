@@ -34,4 +34,7 @@ def make_ten(numbers):
     print(f'Can\'t make {TEN} with {", ".join(map(str, numbers))}!')
 
 if __name__ == '__main__':
-  make_ten([3, 5, 8, 5])
+  numbers = input('Enter the numbers (e.g. \'2468\'): ')
+  while numbers:
+    make_ten([int(num) for num in numbers])
+    numbers = input('Enter the numbers (e.g. \'2468\'): ')
